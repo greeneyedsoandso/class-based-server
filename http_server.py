@@ -4,7 +4,8 @@ import traceback
 import os
 import mimetypes
 
-class HttpServer():
+
+class HttpServer:
 
     @staticmethod
     def make_response(
@@ -55,7 +56,7 @@ class HttpServer():
         Then you would return "/images/sample_1.png"
         """
 
-        return "TODO: COMPLETE THIS"  # TODO
+
 
 
     @staticmethod
@@ -88,7 +89,8 @@ class HttpServer():
         if path.endswith('/'):
             return b"text/plain"
         else:
-            return b"TODO: FINISH THE REST OF THESE CASES"  # TODO
+            guess = mimetypes.guess_type(path)
+            return bytes(guess[0], encoding='UTF-8')
 
     @staticmethod
     def get_content(path):
