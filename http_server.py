@@ -56,8 +56,9 @@ class HttpServer:
         Then you would return "/images/sample_1.png"
         """
 
-
-
+        received = request.split(" ")
+        path = received.pop(1)
+        return path
 
     @staticmethod
     def get_mimetype(path):
