@@ -126,8 +126,19 @@ class HttpServer:
             # The file `webroot/a_page_that_doesnt_exist.html`) doesn't exist,
             # so this should raise a FileNotFoundError.
         """
-
-        return b"Not implemented!"  # TODO: Complete this function.
+        if path == '/':
+            root = os.listdir(b'webroot/')
+            for _ in root:
+                return root
+        if os.path.isfile(path):
+            if os.path.exists(path):
+                filepath = os.path.join('webroot', path)
+                with open(filepath, 'rb') as f:
+                    return f.read()
+        if os.path.isdir(path):
+            return os.listdir(path)
+        if not os.path.exists(path):
+            raise FileNotFoundError
 
     def __init__(self, port):
         self.port = port
