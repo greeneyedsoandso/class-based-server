@@ -127,14 +127,19 @@ class HttpServer:
             # so this should raise a FileNotFoundError.
         """
         if path == '/':
-            root = os.listdir(b'webroot/')
-            for _ in root:
-                return root
+            directory = os.listdir(b'webroot/')
+            files = ''
+            for file in directory:
+                files = f'{files}\n{file}'
+            return HttpServer.make_response(
+                b"200",
+                b"OK",
+                body=bytes(files, encoding='UTF-8'),
+                mimetype=b"text/plain")
         if os.path.isfile(path):
-            if os.path.exists(path):
-                filepath = os.path.join('webroot', path)
-                with open(filepath, 'rb') as f:
-                    return f.read()
+            filepath = os.path.join(b'webroot', path)
+            if os.path.exists(filepath):
+                return filepath
         if os.path.isdir(path):
             return os.listdir(path)
         if not os.path.exists(path):
