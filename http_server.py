@@ -136,13 +136,13 @@ class HttpServer:
             filepath = 'webroot/' + path
             with open(filepath, 'rb') as _:
                 return _.read()
-        if os.path.isdir(path):
+        if os.path.isdir('webroot/' + path):
             directory = os.listdir('webroot/')
             files = ''
             for file in directory:
                 files = f'{files}\n{file}'
             return bytes(files, encoding='UTF-8')
-        if not os.path.exists(path):
+        if not os.path.exists('webroot/' + path):
             raise FileNotFoundError
 
     def __init__(self, port):
